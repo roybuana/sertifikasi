@@ -9,7 +9,28 @@
 			return false;	
 		}
 	}
-
+    function cek_group(){
+        //session_start();
+        $id_session=$_SESSION['id'];
+        $kueri=mysql_fetch_array(mysql_query("SELECT id_group_users FROM users WHERE id=$id_session"));
+        $group=$kueri['id_group_users'];
+        return $group;
+    }
+    function cek_id_lsp(){
+        //session_start();
+        $id_session=$_SESSION['id'];
+        $kueri=mysql_fetch_array(mysql_query("SELECT id FROM lsp WHERE id_users=$id_session"));
+        $id_lsp=$kueri['id'];
+        return $id_lsp;
+    }
+    function cek_email($email){
+        $kueri=mysql_query("SELECT email FROM users WHERE email='$email'");
+        if(mysql_num_rows($kueri)==0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 	function checkPass($user, $pass) {
 		$query = mysql_query("SELECT * FROM users WHERE email='$user' and password=PASSWORD('$pass')");
 		if(mysql_num_rows($query) == 1){

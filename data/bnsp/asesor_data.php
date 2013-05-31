@@ -11,11 +11,21 @@
 
 	$result = array();
 	$where = "asesor.id like '%$ia%'";
-	$rs = mysql_query("select count(*) FROM 
+    if(cek_group()==15){
+        $rs = mysql_query("select count(*) FROM 
     asesor
 LEFT JOIN lsp ON asesor.id_lsp=lsp.id
 LEFT JOIN asesor_type ON asesor_type.id=asesor.id_asesor_type
      WHERE ".$where);
+	    
+    }else{
+        $rs = mysql_query("select count(*) FROM 
+    asesor
+LEFT JOIN lsp ON asesor.id_lsp=lsp.id
+LEFT JOIN asesor_type ON asesor_type.id=asesor.id_asesor_type
+     WHERE ".$where." AND asesor.id_lsp='".cek_id_lsp()."'");
+	
+    }
 	$row = mysql_fetch_row($rs);
 	$result["total"] = $row[0];
 	if($result["total"]==0){
@@ -23,14 +33,27 @@ LEFT JOIN asesor_type ON asesor_type.id=asesor.id_asesor_type
        $result["rows"] = $row2;
        echo json_encode($result); 
 	}else{
-	  
-	   $rs = mysql_query("SELECT asesor.*,
+	  if(cek_group()==15){
+        $rs = mysql_query("SELECT asesor.*,
 lsp.rlsp_nama,
 asesor_type.asesor_type
 FROM asesor
 LEFT JOIN lsp ON asesor.id_lsp=lsp.id
 LEFT JOIN asesor_type ON asesor_type.id=asesor.id_asesor_type
         WHERE ".$where." ORDER BY asesor.id_auto DESC limit $offset,$rows");
+	   
+	    
+    }else{
+        $rs = mysql_query("SELECT asesor.*,
+lsp.rlsp_nama,
+asesor_type.asesor_type
+FROM asesor
+LEFT JOIN lsp ON asesor.id_lsp=lsp.id
+LEFT JOIN asesor_type ON asesor_type.id=asesor.id_asesor_type
+        WHERE ".$where." AND asesor.id_lsp='".cek_id_lsp()."' ORDER BY asesor.id_auto DESC limit $offset,$rows");
+	   
+	
+    }
 	   while($record = mysql_fetch_array($rs)){
 	   $row2[] =	array("kode"=>$record['id'],
        "id_auto"=>$record['id_auto'],

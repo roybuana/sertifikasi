@@ -23,7 +23,7 @@
      
         
     if($id_auto){
-    
+        if(cek_email($rlsp_email)==true){
 	   $query = mysql_query("SELECT * FROM lsp WHERE id_auto='$id_auto'");
 		if(mysql_num_rows($query) == 1){
 		      $q =mysql_query("UPDATE lsp SET 
@@ -48,9 +48,12 @@
 				success('LSP');
 			}else error('data gagal diedit!');	
 		}else error('Failed to save data user');
-        
+        }else{
+            error('Email sudah terdaftar');
+        }
 	}else{
-	    $max=mysql_fetch_array(mysql_query("SELECT MAX(id) as besar FROM users"));
+	    if(cek_email($rlsp_email)==true){
+	      $max=mysql_fetch_array(mysql_query("SELECT MAX(id) as besar FROM users"));
         $id_use=$max['besar']+1;
       
 			$kueri=mysql_query("INSERT INTO lsp SET
@@ -81,7 +84,11 @@
             }else{
                 error('Gagal Insert Data');
             }
-		
+		 
+	    }else{
+	       error('Email sudah terdaftar');
+	    }
+	    
 			
 	}
 ?>

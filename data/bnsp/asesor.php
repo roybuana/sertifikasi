@@ -79,7 +79,10 @@ $(function(){
         iconCls: 'icon-remove'  
     });
     
-    
+    $('#cari_button').linkbutton({
+                iconCls:'icon-search',
+                plain:true
+            })
     $("#tb-tambah-asesor").live('click',function(){
         $('#dlg-buttons').show();   
     	var nm_file = 'asesor';
@@ -93,13 +96,14 @@ $(function(){
         $('#konten_menu').load('data/bnsp/import_excel.php');
     })
 
-    $("#tb-edit-asesor").live('click',function(){
+     $("#tb-edit-asesor").live('click',function(){
       $('#dlg-buttons').show();   
     	var row = $('#tt').datagrid('getSelected');
+        var nm_folder='bnsp';
     	if (row){
         		var f_url = 'asesor';
         		$.ajax({
-        			url: "template/form/fa_"+f_url+".php?id="+row.kode,
+        			url: "template/form/"+nm_folder+"/fa_"+f_url+".php?id="+row.kode,
         			dataType: 'json',
         			timeout: 2000,
         			error: function() {
@@ -107,7 +111,7 @@ $(function(){
         			},
         			success: function(xr){
         				var ctn = xr.content;
-        				editUser(xr.ftitle,f_url+".php?id="+row.kode,ctn.replace(/\\/,""),xr.dtitle);
+        				editUser2(nm_folder,xr.ftitle,f_url+".php?id="+row.kode,ctn.replace(/\\/,""),xr.dtitle);
         			}	
         		})
         	}

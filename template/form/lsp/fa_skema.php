@@ -3,16 +3,10 @@
 	session_start();
 	isAjax();
 	privilegesPage();
-    if(cek_group()==15){
-        $id_lsp_txt="<input name='id_lsp' id='id_lsp'>";
-    }else{
-        $kode_lsp=cek_id_lsp();
-        $id_lsp_txt="$kode_lsp <input type='hidden' name='id_lsp' value='$kode_lsp'>";
-    }
 	$data = array();
     $data['content']="<script type='text/javascript'>
     
-    $('#rasesor_dstart,#rasesor_dend').datebox({
+    $('#tanggal_ketetapan,#tanggal_entry').datebox({
         width:90
     })
      $('#id_lsp').combogrid({
@@ -45,55 +39,24 @@
                 width:300
                 });
     </script>";
+    
+   
+           
+           
 	$data['content'] .= "
-    <fieldset><legend>Form Asesor</legend><table>
-
-<td>Kode Asesor :</td>
-<td><input name='id' id='id'><input type='hidden' name='kode' id='kode'></td> 
+        <fieldset><legend>Form Input Skema</legend><table>
+<tr>
+<td>Nama Skema :</td>
+<td><input name='skema' id='skema'><input type='hidden' name='kode' id='kode'></td> 
 </tr>
 <tr>
-<td>Type Asesor :</td>
-<td><input name='id_asesor_type' id='id_asesor_type'></td> 
-</tr>
-<tr>
-<td>LSP :</td>
-<td>$id_lsp_txt</td> 
+<td>Tanggal Ketetapan :</td>
+<td><input name='tanggal_ketetapan' id='tanggal_ketetapan'></td> 
 </tr>
     
 <tr>
-<td>Nama Asesor :</td>
-<td><input name='rasesor_nama' id='rasesor_nama'></td> 
-</tr>
-
-<tr>
-<td>SEX:</td>
-<td><div>P<input type='radio' name='rgender_kode' id='rgender_kode' value='P'>W<input value='W' type='radio' name='rgender_kode' id='rgender_kode'></div></td> 
-</tr>
-<tr>
-<td>Alamat :</td>
-<td><input name='rasesor_alamat' id='rasesor_alamat'></td> 
-</tr>
-<tr>
-<td>Email :</td>
-<td><input name='rasesor_email' id='rasesor_email'></td> 
-</tr>
-
-<tr>
-<td>HP:</td>
-<td><input name='rasesor_telp' id='rasesor_telp'></td> 
-</tr>
-<tr>
-<td>Masa Berlaku:</td>
-<td>Start<input name='rasesor_dstart' id='rasesor_dstart' > End <input name='rasesor_dend' id='rasesor_dend' ></td> 
-</tr>
-<tr>
-<td>Profinsi  :</td>
-<td><input name='rprop_kode' id='rprop_kode' /></td>
-</tr>
-<tr>
-<tr>
-<td>Kota  :</td>
-<td><input name='rkota_kode' id='rkota_kode'  /></td>
+<td>Tanggal Entry :</td>
+<td><input name='tanggal_entry' id='tanggal_entry'></td> 
 </tr>
 <tr>
 <td>Status Aktif:</td>
@@ -108,7 +71,7 @@
                             </fieldset>
                        ";
                             
-	$data['ftitle'] = 'Input Asesor';
+	$data['ftitle'] = 'Input Skema';
 	$data['dtitle'] = '';
 	echo json_encode($data);
 ?>

@@ -6,11 +6,12 @@
 	$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 	$rows = isset($_POST['rows']) ? intval($_POST['rows']) : 300;
      $ia = isset($_POST['ia']) ? mysql_real_escape_string($_POST['ia']) : '';
+     $ib = isset($_POST['ib']) ? mysql_real_escape_string($_POST['ib']) : '';
   
 	$offset = ($page-1)*$rows;
 
 	$result = array();
-	$where = "users like '%$ia%'";
+	$where = "users.users like '%$ia%' AND users.email like '%$ib%'";
 	$rs = mysql_query("select count(users.id) FROM users JOIN group_users ON users.id_group_users=group_users.id WHERE ".$where);
 	$row = mysql_fetch_row($rs);
 	$result["total"] = $row[0];

@@ -2,8 +2,16 @@
 	session_start();
 	isAjax();
 	privilegesPage();
+    
+    if(cek_group()==15){
+        $toolbar='#toolbar,#toolbar_cari';
+        
+    }else{
+        $toolbar='#toolbar_cari';
+    }
  ?>
   <script>
+  toolbar_group="<?php echo $toolbar ?>";
 function tb_hapus_sektor(){
             $.messager.confirm('Konfirmasi','Yakin untuk menghapus?',function(hapusOK){
 			if (hapusOK){
@@ -43,7 +51,7 @@ $(function(){
        	rownumbers: true,
         pagination:true,
         striped:true,
-        toolbar:'#toolbar',
+        toolbar:toolbar_group,
         frozenColumns:[[ 
             {field:'ck',checkbox:'true',title:'all',width:75,align:'center'},
             {field:'id_uk',title:'Kode UK',width:130,align:'center'},
@@ -76,6 +84,10 @@ $(function(){
     	var f_url = 'sektor';
         buildForm(f_url);
     })
+    $('#cari_button').linkbutton({
+                iconCls:'icon-search',
+                plain:true
+            })
     $("#tb-edit-sektor").live('click',function(){
       $('#dlg-buttons').show();   
     	var row = $('#tt').datagrid('getSelected');
@@ -100,9 +112,16 @@ $(function(){
 </script>
 <table id='tt'>
 </table>
-<div id="toolbar">  
+<div id="toolbar" style="display: none;">  
     <a href="#"  plain="true" id="tb-tambah-sektor">Baru</a>  
     <a href="#"  plain="true" id="tb-edit-sektor">Edit</a>  
     <a href="#"  plain="true" onclick="tb_hapus_sektor()" id="tb-hapus-sektor">Hapus</a>  
-</div>  
+</div> 
+<div id="toolbar_cari" style="padding:3px">
+        <span>Kode UK :</span>
+		<input id="ia" style="width:75px;line-height:18px;border:1px solid #ccc">
+        <span>Unit Kompetensi:</span>
+		<input id="ib" style="width:75px;line-height:18px;border:1px solid #ccc">
+		<a href="#" id="cari_button" onclick="doSearch()">Search</a>
+	</div> 
     

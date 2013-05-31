@@ -12,17 +12,22 @@
               
 			});
 		}
-function tb_hapus_lsp(){
+        $('#ia,#ib').keyup(function(e){
+            if(e.keyCode == 13){
+                doSearch();
+            }
+        })
+function tb_hapus_tak(){
             $.messager.confirm('Konfirmasi','Yakin untuk menghapus?',function(hapusOK){
 			if (hapusOK){
 			  var ids = [];  
             var rowss = $('#tt').datagrid('getSelections');  
              for(var i=0; i<rowss.length; i++){  
-                ids.push(rowss[i].id_users);  
+                ids.push(rowss[i].kode);  
             }
                 $.ajax({
                   type: 'POST',
-                  url: 'process/del_lsp.php',
+                  url: 'process/lsp/del_tak.php',
                   data:{ var_array:ids },
                  
                   success: function(result){
@@ -54,27 +59,25 @@ $(function(){
         toolbar:'#toolbar_cari,#toolbar',
         frozenColumns:[[ 
             {field:'ck',checkbox:'true',title:'all',width:75,align:'center'}, 
-            {field:'kode',title:'Kode lsp',width:80},  
+            {field:'kode',title:'Kode TAK',width:80},  
              {field:'tak',title:'Nama TAK',width:190},
             {field:'rlsp_nama',title:'Nama LSP',width:190},  
-            {field:'rlsp_nolis',title:'No Lisensi',align:'center',width:150},
+            {field:'no_cab',title:'No Cabang',align:'center',width:150},
             
         ]],  
         columns:[[
         
-            {field:'rlsp_alamat',title:'Alamat',width:175,align:'center'},
-            {field:'id_users',title:'Alamat',width:75,align:'center',hidden:'true'},
+            {field:'kode_prov',title:'Kode Prov',width:175,align:'center'},
+            {field:'kode_kota',title:'Kode Kota',width:75,align:'center',hidden:'true'},
             
-            {field:'rlsp_kodepos',title:'Ko Pos',align:'center',width:100},
+            {field:'alamat',title:'Alamat',align:'center',width:100},
             
-            {field:'rlsp_telp',title:'Telp',width:150},
-            {field:'rlsp_fax',title:'FAX',align:'center',width:150},
-            {field:'rlsp_email',title:'Email',align:'center',width:100},
-            {field:'rlsp_url',title:'Website',align:'center',width:70},
-            {field:'rlsp_dberdiri',title:'Berdiri',align:'center',width:100},
-            {field:'rlsp_doperasi',title:'Tanggal Operasi',align:'center',width:100},
-            {field:'rlsp_dlic',title:'Tgl Lisensi',align:'center',width:100},
-            {field:'status_aktif',title:'Status Aktif',align:'center',width:100},
+            {field:'kopos',title:'Kode Pos',width:150},
+            {field:'telp',title:'Telp',align:'center',width:150},
+            {field:'fax',title:'Fax',align:'center',width:100},
+            {field:'no_urut',title:'No Urut',align:'center',width:70},
+            {field:'tgl_mulai',title:'Tgl Mulai',align:'center',width:100},
+            {field:'tgl_akhir',title:'Tgl Akhir',align:'center',width:100},
                         ]]              
     })
     $("#tb-tambah-lsp").live('click',function(){
@@ -85,7 +88,7 @@ $(function(){
     $('#tb-tambah-tak').linkbutton({  
         iconCls: 'icon-add'  
     });
-    $('#tb-edit-lsp').linkbutton({  
+    $('#tb-edit-tak').linkbutton({  
         iconCls: 'icon-edit'  
     });
     $('#tb-hapus-lsp').linkbutton({  
@@ -101,13 +104,14 @@ $(function(){
         var nm_folder='lsp';        
         C_Form(nm_folder,nm_file);
     })
-    $("#tb-edit-lsp").live('click',function(){
+    $("#tb-edit-tak").live('click',function(){
       $('#dlg-buttons').show();   
     	var row = $('#tt').datagrid('getSelected');
+        var nm_folder='lsp';
     	if (row){
-        		var f_url = 'lsp';
+        		var f_url = 'tak';
         		$.ajax({
-        			url: "template/form/fa_"+f_url+".php?id="+row.kode,
+        			url: "template/form/lsp/fa_"+f_url+".php?id="+row.kode,
         			dataType: 'json',
         			timeout: 2000,
         			error: function() {
@@ -115,7 +119,7 @@ $(function(){
         			},
         			success: function(xr){
         				var ctn = xr.content;
-        				editUser(xr.ftitle,f_url+".php?id="+row.kode,ctn.replace(/\\/,""),xr.dtitle);
+        				editUser2(nm_folder,xr.ftitle,f_url+".php?id="+row.kode,ctn.replace(/\\/,""),xr.dtitle);
         			}	
         		})
         	}
@@ -127,9 +131,9 @@ $(function(){
 </table>
 
 	<div id="toolbar_cari" style="padding:3px">
-        <span>Kode LSP :</span>
+        <span>Nama LSP :</span>
 		<input id="ia" style="width:75px;line-height:18px;border:1px solid #ccc">
-         <span>Nama LSP :</span>
+         <span>Nama TAK :</span>
 		<input id="ib" style="width:75px;line-height:18px;border:1px solid #ccc">
 		<span>Status Aktif :</span>
 		<select id='ic'>
@@ -142,6 +146,6 @@ $(function(){
 	</div>
     <div id="toolbar">  
     <a href="#"  plain="true" id="tb-tambah-tak">Baru</a>  
-    <a href="#"  plain="true" id="tb-edit-lsp">Edit</a>  
-    <a href="#"  plain="true" onclick="tb_hapus_lsp()" id="tb-hapus-lsp">Hapus</a>  
+    <a href="#"  plain="true" id="tb-edit-tak">Edit</a>  
+    <a href="#"  plain="true" onclick="tb_hapus_tak()" id="tb-hapus-lsp">Hapus</a>  
 </div>  

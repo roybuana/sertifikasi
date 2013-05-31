@@ -44,10 +44,13 @@ $(function(){
         pagination:true,
         striped:true,
         toolbar:'#toolbar',
-        columns:[[ 
+        frozenColumns:[[ 
             {field:'ck',checkbox:'true',title:'all',width:75,align:'center'},
             {field:'bid_id',title:'Kode Bidang',width:80,align:'center'},
             {field:'bidang',title:'Bidang Kompetensi',width:300}, 
+             
+        ]],        
+        columns:[[ 
             {field:'kode',title:'Kode Sub',width:80,align:'center'},
             {field:'sektor_sub',title:'Sub Sektor',width:300},
             {field:'id_sektor',title:'Kode Sektor',width:80,align:'center'},  

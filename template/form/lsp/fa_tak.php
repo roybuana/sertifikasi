@@ -45,13 +45,9 @@
            
 	$data['content'] .= "
         <fieldset><legend>Form Input TAK</legend><table>
-
-<td>Kode TAK :</td>
-<td><input name='id' id='id'><input type='hidden' name='kode' id='kode'></td> 
-</tr>
 <tr>
 <td>Nama TAK :</td>
-<td><input name='tak' id='tak'></td> 
+<td><input name='tak' id='tak'><input type='hidden' name='kode' id='kode'></td> 
 </tr>
 <tr>
 <td>NO Cabang :</td>
@@ -86,7 +82,7 @@
 </tr>
 <tr>
 <td>No Urut :</td>
-<td><input name='prov' id='prov' /></td>
+<td><input name='no_urut' id='no_urut' /></td>
 </tr>
 <tr>
 <tr>

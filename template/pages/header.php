@@ -81,10 +81,20 @@
 	       	}	
 	   })
     }
-    function C_Form(nm_folder,nm_file){
+    function C_Form(nm_folder,nm_file,lebar_form,lebar_dlg,var1,var2){
         $("#fm").form("clear");
+        $('.formLayout').css('width',lebar_form);
+        
+        $('#dlg').dialog({
+          width:lebar_dlg  
+        })
+        if(var1!==undefined){
+            url1='?id='+var1;
+        }else{
+            url1='';
+        }
        	$.ajax({
-		url: "template/form/"+nm_folder+"/fa_"+nm_file+".php",
+		url: "template/form/"+nm_folder+"/fa_"+nm_file+".php"+url1,
 		dataType: 'json',
 		timeout: 2000,
 		error: function() {	
@@ -147,11 +157,6 @@ $("#c_formulir").live('click',function(){
     $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();
     $('#konten_menu').load('data/c_formulir.php');
 })				
-$("#asesor").live('click',function(){
-    $('#tabhome').tabs('select', 'Konten');
-    $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();
-    $('#konten_menu').load('data/asesor.php');
-})
 $("#mahasiswa").live('click',function(){
     $('#tabhome').tabs('select', 'Konten');
     $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();
@@ -183,6 +188,17 @@ $("#tak").live('click',function(){
     $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();
     $('#konten_menu').load('data/lsp/tak.php');
 })
+$("#skema_lsp").live('click',function(){
+    $('#tabhome').tabs('select', 'Konten');
+    $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();
+    $('#konten_menu').load('data/lsp/skema_lsp.php');
+})
+$("#asesor").live('click',function(){
+    $('#tabhome').tabs('select', 'Konten');
+    $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();
+    $('#konten_menu').load('data/bnsp/asesor.php');
+})
+
 $("#d_asesor").live('click',function(){
     $('#tabhome').tabs('select', 'Konten');
     $('#konten_menu').html('<div  align="center"></div><img  src="images/loader.gif" /></div>').fadeIn();

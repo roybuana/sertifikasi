@@ -19,6 +19,14 @@ function editUser(ftitle,n_url,content,dtitle){
 		$('#fm').form('load','template/form/fe_'+n_url);
 		url = "process/fse_"+n_url;
 }
+function editUser2(nm_folder,ftitle,n_url,content,dtitle){
+      
+		$("#f_title").text(dtitle);
+		$("#fm").html(content);
+		$('#dlg').dialog('open').dialog('setTitle',ftitle);
+		$('#fm').form('load','template/form/'+nm_folder+'/fe_'+n_url);
+		url = "process/"+nm_folder+"/fse_"+n_url;
+}
 function saveUser(){
           $('#fm').form('submit',{
 		url: url,
